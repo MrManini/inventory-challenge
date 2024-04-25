@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sacar elementos de bodega</title>
+    <link rel="stylesheet" href="estilo_salida_bodega.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+    <div class="header">
+        <div id="redirigir_ingresar_elemento">Ingresar elementos a bodega</div>
+        <div id="redirigir_sacar_elemento">Sacar elementos de bodega</div>
+
+        <div class="contenedor_botones_header">
+            <i class="fa fa-sign-out" aria-hidden="true" id="boton_salir"></i>
+            <button id="boton_envio">Enviar pedido</button>
+        </div>
+    </div>
+
+
+<form id="formulario_salida">
+
+    <form id="formulario_ingreso">
+
+        <div class="card">
+            <div class="contenedor_imagenes">
+                <img class="image" src="https://http2.mlstatic.com/D_NQ_NP_2X_973737-MCO50303892681_062022-V.webp">
+            </div>
+            <div class="contenedor_seleccion">
+                <div class="aumentar" id="s_aumentar1" >+</div>
+                <div class="disminuir" id="s_disminuir1">-</div>
+                <input value="0" type="number" id="s_cantidad_producto1">
+            </div>
+          </div>
+
+
+        <div class="card">
+            <div class="contenedor_imagenes">
+                <img class="image" src="https://miscelandia.vtexassets.com/arquivos/ids/232663/LE60291_673419338516_01.jpg?v=637686132974700000">
+            </div>
+            <div class="contenedor_seleccion">
+                <div class="aumentar" id="s_aumentar2" >+</div>
+                <div class="disminuir" id="s_disminuir2">-</div>
+                <input value="0" type="number" id="s_cantidad_producto2">
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="contenedor_imagenes">
+                <img class="image" src="https://http2.mlstatic.com/D_NQ_NP_734507-MLC49233945528_022022-O.webp">
+            </div>
+            <div class="contenedor_seleccion">
+                <div class="aumentar" id="s_aumentar3" >+</div>
+                <div class="disminuir" id="s_disminuir3">-</div>
+                <input value="0" type="number" id="s_cantidad_producto3">
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="contenedor_imagenes">
+                <img class="image" src="https://http2.mlstatic.com/D_NQ_NP_897027-MCO41221795622_032020-O.webp">
+            </div>
+            <div class="contenedor_seleccion">
+                <div class="aumentar" id="s_aumentar4" >+</div>
+                <div class="disminuir" id="s_disminuir4">-</div>
+                <input value="0" type="number" id="s_cantidad_producto4">
+            </div>
+          </div>
+
+          
+</form>
+
+
+<script src="logica_salida_bodega.js"></script>
+</body>
+</html>
