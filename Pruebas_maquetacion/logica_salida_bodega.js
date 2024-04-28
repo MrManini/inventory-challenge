@@ -1,6 +1,11 @@
 //para devolverse a la pagina de ingresar elementos a la bodega
 var redirigir_ingresar_elementos=document.getElementById("redirigir_ingresar_elemento")
 
+const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
+//si no ha iniciado sesion y altera la url, de igual se redirige a la pagina de login
+if (!isAuthenticated) {
+  window.location.href = 'login.html';
+}
 
 
 redirigir_ingresar_elementos.addEventListener("click",function(){
@@ -10,7 +15,8 @@ redirigir_ingresar_elementos.addEventListener("click",function(){
 var salir=document.getElementById("boton_salir")
 
 salir.addEventListener("click",function(){
-    location.href="login.html"
+  localStorage.setItem('isAuthenticated', 'false');
+
 })
 //para salir de la pagina
 var boton_salir=document.getElementById("boton_salir")
