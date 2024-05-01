@@ -14,7 +14,7 @@ qreader = QReader()
 
 
 #Especifico la ruta de la imagenn y la codificacion de color a leer
-image = cv2.cvtColor(cv2.imread("basic_qrcode.png"), cv2.COLOR_BGR2RGB)
+image = cv2.cvtColor(cv2.imread("imagen2.jpg"), cv2.COLOR_BGR2RGB)
 
 
 #Decodificar la imagen y guardarla en una tupla
