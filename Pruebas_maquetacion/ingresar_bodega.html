@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar elementos a bodega</title>
+    <link rel="stylesheet" href="estilo_ingreso_bodega.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+    <div class="header">
+        <div id="redirigir_ingresar_elemento">Ingresar elementos a bodega</div>
+        <div id="redirigir_sacar_elemento">Sacar elementos de bodega</div>
+
+        <div class="contenedor_botones_header">
+            <i class="fa fa-sign-out" aria-hidden="true" id="boton_salir"></i>
+            <button id="boton_envio">Confirmar ingreso</button>
+        </div>
+    </div>
+
+
+<form id="formulario_ingreso">
+    <div class="card">
+        <div class="contenedor_imagenes">
+            <img class="image" src="https://27gen.files.wordpress.com/2013/06/lego-red-brick.jpg">
+        </div>
+        <div class="contenedor_seleccion">
+            <div class="aumentar" id="aumentar1" >+</div>
+            <div class="disminuir" id="disminuir1">-</div>
+            <input value="0" type="number" id="cantidad_producto1">
+        </div>
+      </div>
+
+
+      <div class="card">
+        <div class="contenedor_imagenes">
+            <img class="image" src="https://bricksandgo.com/756-large_default/lego-3003-brick-2x2-orange.jpg">
+        </div>
+        <div class="contenedor_seleccion">
+            <div class="aumentar" id="aumentar2" >+</div>
+            <div class="disminuir" id="disminuir2">-</div>
+            <input value="0" type="number" id="cantidad_producto2">
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="contenedor_imagenes">
+            <img class="image" src="https://m.brickshop.eu/components/com_virtuemart/shop_image/product/LEGO_Wiel_43.2D__62c6b181061a0.jpg">
+        </div>
+        <div class="contenedor_seleccion">
+            <div class="aumentar" id="aumentar3" >+</div>
+            <div class="disminuir" id="disminuir3">-</div>
+            <input value="0" type="number" id="cantidad_producto3">
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="contenedor_imagenes">
+            <img class="image" src="https://super-briques.fr/9046-large_default/technic-brick-1x8-7-holes-lego-part-3702.jpg">
+        </div>
+        <div class="contenedor_seleccion">
+            <div class="aumentar" id="aumentar4" >+</div>
+            <div class="disminuir" id="disminuir4">-</div>
+            <input value="0" type="number" id="cantidad_producto4">
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="contenedor_imagenes">
+            <img class="image" src="https://d2t1xqejof9utc.cloudfront.net/screenshots/pics/2b7b7a7a9e58bced93b0068fd40434cc/large.JPG">
+        </div>
+        <div class="contenedor_seleccion">
+            <div class="aumentar" id="aumentar5" >+</div>
+            <div class="disminuir" id="disminuir5">-</div>
+            <input value="0" type="number" id="cantidad_producto5">
+        </div>
+    </div>
+
+
+
+    <div class="card">
+        <div class="contenedor_imagenes">
+            <img class="image" src="https://royaldesign.com/image/2/room-copenhagen-lego-storage-brick-1-6">
+        </div>
+        <div class="contenedor_seleccion">
+            <div class="aumentar" id="aumentar6" >+</div>
+            <div class="disminuir" id="disminuir6">-</div>
+            <input value="0" type="number" id="cantidad_producto6">
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="contenedor_imagenes">
+            <img class="image" src="https://i5.walmartimages.com/seo/LEGO-Storage-Brick-8-Azur_bfbb8414-0c88-471d-9236-7193e69bee60_1.0614ae56eea2e0651aef4d95b1b600f5.jpeg">
+        </div>
+        <div class="contenedor_seleccion">
+            <div class="aumentar" id="aumentar7" >+</div>
+            <div class="disminuir" id="disminuir7">-</div>
+            <input value="0" type="number" id="cantidad_producto7">
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="contenedor_imagenes">
+            <img class="image" src="https://www.brick-shop.de/images/product_images/original_images/2820_0.jpg">
+        </div>
+        <div class="contenedor_seleccion">
+            <div class="aumentar" id="aumentar8" >+</div>
+            <div class="disminuir" id="disminuir8">-</div>
+            <input value="0" type="number" id="cantidad_producto8">
+        </div>
+    </div>
+
+
+
+
+</form>
+
+</body>
+<script src="logica_entrada_bodega.js" type="module" ></script>
+</html>
