@@ -1,6 +1,6 @@
 import socket
 
-HOST = 'Arduino IP'  # Puedes encontrar la IP del Arduino en el monitor serial del Arduino IDE
+HOST = '192.168.226.130'  # Puedes encontrar la IP del Arduino en el monitor serial del Arduino IDE
 PORT = 80
 
 def send_command(command):
