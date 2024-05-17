@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de sesion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_login.css') }}">
+
+
+</head>
+<body>
+
+    <div class="overlay">
+        <form  method="post">
+           <div class="con">
+           <header class="head-form">
+              <h2>Inicio de sesión</h2>
+              <p>Ingrese al sistema de bodega</p>
+           </header>
+           <br>
+           <div class="field-set">
+                   <span class="input-item">
+                   <i class="fa fa-user-circle"></i>
+                 </span>
+                 <input class="form-input" id="correo" name="correo" type="email" placeholder="Correo" required>
+              <br>
+              <span class="input-item">
+                <i class="fa fa-key"></i>
+               </span>
+              <input class="form-input" type="password" name="contraseña" placeholder="Contraseña" id="contraseña" required>    
+             <span>
+             </span>
+              <br>
+              <input type="submit" value="Enviar" id="boton_envio" class="log-in">
+           </div>
+          </div>          
+        </form>
+        </div>
+
+
+<script src="{{ url_for('static', filename='js/validacion_login.js') }}"></script>
+
+
+</body>
+</html>

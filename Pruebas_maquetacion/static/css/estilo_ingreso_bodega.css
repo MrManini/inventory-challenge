@@ -1,0 +1,197 @@
+@import url('https://fonts.googleapis.com/css?family=Abel|Abril+Fatface|Alegreya|Arima+Madurai|Dancing+Script|Dosis|Merriweather|Oleo+Script|Overlock|PT+Serif|Pacifico|Playball|Playfair+Display|Share|Unica+One|Vibur');
+:root {
+    font-size: 20px;
+  }
+form{
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width:100%;
+    justify-content: center;
+}
+  
+a {
+  text-decoration: none; /* Quita el subrayado */
+  color: inherit; /* Hereda el color del texto del elemento padre */
+}
+
+a:visited {
+  color: inherit; /* Evita que los enlaces visitados cambien de color */
+}
+
+a:hover,
+a:focus,
+a:active {
+  color: inherit; /* Evita que los enlaces cambien de color en diferentes estados */
+  outline: none; /* Quita el contorno predeterminado al enfocar */
+} 
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+  
+  p {
+    margin: 0;
+  }
+  
+  p:not(:last-child) {
+    margin-bottom: 1.5em;
+  }
+  
+  body {
+    font: 1em/1.618 Inter, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 100vh;
+    padding: 30px;
+    margin: 0;
+    margin-top:0vh;
+    color: #224;
+    background:
+    url(https://images6.alphacoders.com/421/421437.jpg)
+    center / cover no-repeat fixed;
+  }
+  
+  .card {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin:20px;
+    max-width: 500px;
+    height: 370px;
+    padding:10px;
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.30);
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+  
+    backdrop-filter: blur(10px);
+  }
+  
+  .contenedor_imagenes{
+    height:75%;
+    width:100%;
+    padding:10px;
+}
+
+  .contenedor_seleccion{
+    height:25%;
+    width:100%;
+    padding:10px;
+    border-radius: 20px;
+    vertical-align: center;
+    justify-content: space-between;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .contenedor_imagenes img{
+    height:100%;
+    width:100%;
+    border-radius:20px;
+  }
+
+  input{
+    border-radius: 20px;
+    border:none;
+    text-align: center;
+    width:50%;
+    height:60%;
+    margin-left: 10px;
+  }
+
+
+  .aumentar{
+    border-radius: 100%;
+    border:none;
+    height:55%;
+    width:15%;
+    text-align: center;
+    margin-right:10px;
+    background-color: #0BDA51; 
+    font-size: 20px;
+    color:white;
+    opacity:0.7;
+  }
+  .aumentar:hover{
+    transition-duration: 0.5s;
+    box-shadow: 0 0 30px rgba(11,218,81,1);
+    opacity:1
+  }
+
+  .disminuir{
+    border-radius: 100%;
+    border:none;
+    height:55%;
+    width:15%;
+    text-align: center;
+    margin-right:10px;
+    background-color: rgba(255,8,0,1); 
+    font-size: 20px;
+    color:white;
+    opacity:0.7;
+  }
+  .disminuir:hover{
+    transition-duration: 0.5s;
+    box-shadow: 0 0 30px rgba(255,8,0,1);
+    opacity:1
+  }
+
+  .header{
+    height:auto;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: rgba(0,0,0,0.4);
+    padding-left:2rem;
+    padding-right:2rem;
+    border-radius: 20px;
+  }
+
+  .fa{
+    color:rgba(255,8,0,1);
+    font-size: 60px !important;
+    padding:10px;
+    border-radius: 20px;
+  }
+  .header button{
+    background-color: #0BDA51; 
+    border:none;
+    color:white;
+    border-radius: 20px;
+    padding:10px;
+    font-size: 25px;
+  }
+  .header div{
+    color:white;
+    font-family: 'Abel', sans-serif;
+    font-size: 40px;
+    margin:30px;
+  }
+
+  .contenedor_botones_header{
+    display:flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+i{
+
+  text-align: center;
+}
+
+.boton_envio{
+  background-color: #0BDA51; 
+  border:none;
+  color:white;
+  border-radius: 20px;
+  padding:10px;
+  font-size: 25px;
+  width:20vw;
+  height:10vh;
+}
