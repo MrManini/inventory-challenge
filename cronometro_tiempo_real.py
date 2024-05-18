@@ -85,6 +85,7 @@ class QRCodeScannerAndStopwatch:
         if self.running:
             _, img = self.cap.read()
             data, _, _ = self.detector.detectAndDecode(img)
+            img = cv2.flip(img, 1)
             img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
             photo = ImageTk.PhotoImage(image=Image.fromarray(img))
             self.canvas.delete("all")
