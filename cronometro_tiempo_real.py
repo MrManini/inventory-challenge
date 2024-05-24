@@ -94,8 +94,6 @@ class QRCodeScannerAndStopwatch:
             data_array=[]
             tiempo_array=[]
 
-
-
             if data:
                 if data != self.previous_qr_data:
 
