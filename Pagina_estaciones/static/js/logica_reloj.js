@@ -76,7 +76,7 @@ var contenedor=document.getElementById("contenedor")
 //ocultar el boton de pausa
 document.addEventListener('DOMContentLoaded', function() {
     var pausa=document.getElementById("my-qr-reader__dashboard_section")
-    pausa.style.display="none"
+    //pausa.style.display="none"
     const videostr=document.getElementById("my-qr-reader__scan_region")
     //videostr.style.opacity=0
 
