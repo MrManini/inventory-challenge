@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css?family=Abel|Abril+Fatface|Alegreya|Arima+Madurai|Dancing+Script|Dosis|Merriweather|Oleo+Script|Overlock|PT+Serif|Pacifico|Playball|Playfair+Display|Share|Unica+One|Vibur');
+
+*{
+    margin:0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+    border-radius: 20px;
+
+}
+ 
+body{
+    display: flex;
+    margin-top:30vh;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: url("https://images.unsplash.com/photo-1618556658017-fd9c732d1360?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") center /cover no-repeat fixed;
+}
+
+.wrapper{
+    user-select: none;;
+    margin-bottom: 5vh;
+    margin-right:20px;
+    box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(15px);
+    height:200px;
+}
+
+
+.wrapper .time{
+    height:50%;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border: 15px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 0px;
+    backdrop-filter: blur(15px);
+
+}
+span{
+    width:100px;
+    text-align: center;
+    font-size:50px;
+    color:rgb(42, 40, 40);
+    transform: translate(0,-10px);
+
+}
+.dos_puntos{
+    width: 10px;
+}
+.buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius:0px 0px 20px 20px;
+    height: 25%;
+}
+
+button{
+    padding:10px;
+    outline:none;
+    border:none;
+    margin:20px;
+    font-size: 20px;
+    border-radius: 10px;
+    cursor:pointer;
+    background-color: rgba(255, 255, 255, 0.5);
+    font-family: 'Abel', sans-serif;
+    color:rgb(6, 6, 6);
+    transform: translate(0,-10px);
+
+}
+.punto_de_trabajo{
+    height:25%;
+    text-align: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius:20px 20px 0px 0px ;
+    line-height: 40px;
+    font-size: 30px;
+    color:rgba(37, 36, 36, 0.829);
+    font-family: 'Abel', sans-serif;
+
+}
+
+.envolvente{
+    display:flex;
+    margin-top: -10vh;
+}
+
+.flexi{
+    display: flex;
+    flex-direction: column;
+}
+
+#my-qr-reader{
+    margin-top: 15%;
+}
