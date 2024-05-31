@@ -7,12 +7,12 @@ import socket
 cap = cv2.VideoCapture(0)
 font = cv2.FONT_HERSHEY_PLAIN
  
-url='http://192.168.0.115/'
+url='http://192.168.0.100/'
 #cv2.namedWindow("live transmission", cv2.WINDOW_AUTOSIZE)
  
 prev=""
 pres=""
-HOST = "192.168.0.116"
+HOST = "192.168.0.125"
 PORT = 8080
 
 def send_command(command):
