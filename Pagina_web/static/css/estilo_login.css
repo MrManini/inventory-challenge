@@ -8,11 +8,9 @@
 }
 
 body {
-  background:
-    url(https://source.unsplash.com/E8Ufcyxz514/2400x1823)
-    center / cover no-repeat fixed;
-    font-family: 'Vibur', cursive;
-    font-family: 'Abel', sans-serif;
+  background: url("../images/imagen_login.png")  center / cover no-repeat fixed; 
+  font-family: 'Vibur', cursive;
+  font-family: 'Abel', sans-serif;
   height: 100vh;
   display: flex;
   justify-content: center;
