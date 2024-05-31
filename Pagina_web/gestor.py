@@ -4,9 +4,9 @@ import pymysql.cursors
 app = Flask(__name__, static_folder="static")
 
 app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'jhonatan'
-app.config['MYSQL_DB'] = 'datostiempo'
+app.config['MYSQL_USER'] = 'central'
+app.config['MYSQL_PASSWORD'] = 'Central-Stati0n'
+app.config['MYSQL_DB'] = 'storage'
 
 mysql = pymysql.connect(
     host=app.config['MYSQL_HOST'],
@@ -71,7 +71,7 @@ def inventario():
         cursor = mysql.cursor()
         mysql.commit()
     cursor = mysql.cursor()
-    cursor.execute("SELECT * FROM decodificaciones")
+    cursor.execute("SELECT * FROM inventory")
     data = cursor.fetchall()
     return render_template('inventario.html',data=data)
 
