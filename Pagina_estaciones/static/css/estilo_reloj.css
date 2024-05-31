@@ -100,3 +100,8 @@ button{
 #my-qr-reader{
     margin-top: 15%;
 }
+
+#html5-qrcode-anchor-scan-type-change{
+    display:none;
+    opacity: 0;
+}

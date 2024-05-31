@@ -75,9 +75,9 @@
     <input type="submit" class="envio_tiempo">
 </form>
 
+<iframe src="{{ url_for('static', filename='PDF/manuales.pdf') }}" width="600px" height="600px"></iframe>
 
 
-<iframe name="miIframe2" style="display:none;"></iframe>
 
 <form method="post" target="miIframe2" style="display:none" action="/ruta_inactivo">
     <input type="number" class="horas_inactivo" name="horas_inactivo">

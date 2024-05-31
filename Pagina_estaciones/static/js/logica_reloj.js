@@ -79,7 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
     //pausa.style.display="none"
     const videostr=document.getElementById("my-qr-reader__scan_region")
     //videostr.style.opacity=0
-
     const elements = document.querySelectorAll('*');
     elements.forEach(element => {
       element.style.borderColor = 'transparent';
