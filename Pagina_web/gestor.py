@@ -39,7 +39,7 @@ def index():
 @app.route('/entrada_bodega',methods=['GET','POST'])
 def entrada_bodega():
     session['previous_state'] = 'entrada'  # Actualiza el estado anterior en la sesión
-    if request.method=='POST':
+    if request.method=='POST': #TODO: cambiar a 31 
         productos = tuple(int(request.form[f"cantidad_producto{i}"]) for i in range(1, 5))
         if sum(productos) != 0:
             print(productos)
@@ -51,7 +51,7 @@ def entrada_bodega():
     return render_template('ingresar_bodega.html')
 
 @app.route('/salida_bodega',methods=['GET','POST'])
-def salida_bodega():
+def salida_bodega(): #TODO: cambiar modo de lectura y cambiar a 31
     session['previous_state'] = 'salida'  # Actualiza el estado anterior en la sesión
     if request.method=='POST':
         producto1=request.form["s_cantidad_producto1"]

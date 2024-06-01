@@ -1,4 +1,4 @@
-import cv2
+import cv2, typing
 import numpy as np
 import pyzbar.pyzbar as pyzbar
 import urllib.request
@@ -17,17 +17,20 @@ mysql = pymysql.connect(
     db = 'storage',
     cursorclass = pymysql.cursors.DictCursor
 )
-cursor = mysql.cursor();
+cursor = mysql.cursor()
 
 prev=""
 pres=""
 HOST = "192.168.0.125"
 PORT = 8080
+mode = "subtract"
 
-def send_command(command):
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.connect((HOST, PORT))
-        s.sendall(command)
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((HOST, PORT))
+
+
+def send_command(command: str, color: str = "") -> None:
+    s.sendall(color+command)
 
 print("Inicio")
 while True:
@@ -47,14 +50,28 @@ while True:
         else:
             print("Type:",obj.type)
             print("Data: ",obj.data)
-            try:
+            try: #TODO: añadir modo resta
                 led = int(obj.data)
+                if mode == "add":
+                    cursor.execute("UPDATE inventory SET amount = amount + %s WHERE id = %s;", (pedido[led+1], led+1))
+
                 send_command(obj.data)
                 print(f"Sending {obj.data}")
             except ValueError:
                 if obj.data == b'pop_pedido':
-                    cursor.execute("SELECT * FROM orders WHERE id = 1;")
-                    sql_update = "UPDATE inventory SET amount = amount + %s WHERE id = %s;"
+                    cursor.execute("SELECT * FROM ORDER BY id ASC LIMIT 1;")
+                    pedido = cursor.fetchone()
+                    if pedido is not None:
+                        mode = "add"
+                        cursor.execute("DELETE FROM orders ORDER BY id ASC LIMIT 1;")
+                        mysql.commit()
+                        for i in range(1, 5): #TODO: Cambiar a 31 cuando esté lista la página web
+                            if pedido[f"kit{i}"] != 0:
+                                send_command(str(i-1), "c")
+                                print(f"Sending c{i-1}")
+                        #sql_update = "UPDATE inventory SET amount = amount + %s WHERE id = %s;"
+                elif obj.data == b'cancel':
+                    mode = "subtract"
             prev = pres
         cv2.putText(frame, str(obj.data), (50, 50), font, 2,
                     (255, 0, 0), 3)
