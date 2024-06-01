@@ -1,6 +1,7 @@
 import webbrowser
 from flask import Flask, render_template, request,redirect,url_for
-import pymysql.cursors
+import pymysql
+from threading import Timer
 
 app = Flask(__name__, static_folder="static")
 
@@ -35,17 +36,14 @@ def index():
 @app.route('/entrada_bodega',methods=['GET','POST'])
 def entrada_bodega():
     if request.method=='POST':
-        producto1=request.form["cantidad_producto1"]
-        print(f"Numero: {producto1}")
+        productos = tuple(int(request.form[f"cantidad_producto{i}"]) for i in range(1, 5))
+        if sum(productos) != 0:
+            print(productos)
+            cursor = mysql.cursor()
+            query = "INSERT INTO `orders` (`kit1`, `kit2`, `kit3`, `kit4`) VALUES (%s, %s, %s, %s)"
+            cursor.execute(query, productos)
+            mysql.commit()
 
-        producto2=request.form["cantidad_producto2"]
-        print(f"Numero: {producto2}")
-
-        producto3=request.form["cantidad_producto3"]
-        print(f"Numero: {producto3}")
-
-        producto4=request.form["cantidad_producto4"]
-        print(f"Numero: {producto4}")
     # Renderiza la otra página HTML
     return render_template('ingresar_bodega.html')
 
@@ -76,11 +74,14 @@ def inventario():
     data = cursor.fetchall()
     return render_template('inventario.html',data=data)
 
-
 @app.route('/logout')
 def logout():
     return redirect(url_for('index'))
 
+def open_browser():
+    url = "http://localhost:5000"
+    webbrowser.open_new_tab(url)
+
 if __name__ == '__main__':
-    webbrowser.open("http://127.0.0.1:5000/")
-    app.run(debug=True)
+    Timer(1, open_browser).start()
+    app.run(debug=True, use_reloader=False)
