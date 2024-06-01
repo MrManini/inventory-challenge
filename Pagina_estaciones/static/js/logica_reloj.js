@@ -73,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var pausa=document.getElementById("my-qr-reader__dashboard_section")
     //pausa.style.display="none"
     const videostr=document.getElementById("my-qr-reader__scan_region")
+    videostr.style.transform="scaleX(-1)"
     //videostr.style.opacity=0
     const elements = document.querySelectorAll('*');
     elements.forEach(element => {
@@ -145,7 +146,7 @@ function onScanSuccess(decodeText,decodeResult){
 }
 
 var htmlscanner=new Html5QrcodeScanner(
-    "my-qr-reader", {fps:1,qrbox:210})
+    "my-qr-reader", {fps:1,qrbox:170})
 
     htmlscanner.render(onScanSuccess)
 

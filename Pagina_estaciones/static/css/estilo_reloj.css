@@ -121,3 +121,6 @@ button{
     transform: translateX(2vw);
 }
 
+iframe{
+    overflow: hidden;
+}
