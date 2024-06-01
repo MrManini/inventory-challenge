@@ -53,8 +53,8 @@ a:active {
 
   
   .header{
-    height:auto;
-    width:80%;
+    height:100px;
+    width:auto;
     display:flex;
     align-items:center;
     justify-content: center;
@@ -72,12 +72,14 @@ a:active {
     border-radius: 20px;
     padding:10px;
     font-size: 25px;
+
   }
   .header div{
     color:white;
     font-family: 'Abel', sans-serif;
-    font-size: 40px;
-    margin:30px;
+    font-size: 35px;
+    margin:0px 30px 0px 30px;
+
   }
 
   .contenedor_botones_header{
@@ -205,8 +207,10 @@ i{
   border-radius: 20px;
   padding:10px;
   font-size: 30px;
-  width:20vw;
-  height:10vh;
+  width:13vw;
+  height:9vh;
+  margin-top: 30px;
+
 }
 
 .cuerpo_pagina{
