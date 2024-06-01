@@ -5,9 +5,9 @@ import pymysql.cursors
 app = Flask(__name__, static_folder="static")
 
 app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'central'
-app.config['MYSQL_PASSWORD'] = 'Central-Stati0n'
-app.config['MYSQL_DB'] = 'storage'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'jhonatan'
+app.config['MYSQL_DB'] = 'datostiempo'
 
 mysql = pymysql.connect(
     host=app.config['MYSQL_HOST'],
@@ -16,7 +16,6 @@ mysql = pymysql.connect(
     db=app.config['MYSQL_DB'],
     cursorclass=pymysql.cursors.DictCursor
 )
-
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -72,7 +71,7 @@ def inventario():
         cursor = mysql.cursor()
         mysql.commit()
     cursor = mysql.cursor()
-    cursor.execute("SELECT * FROM inventory")
+    cursor.execute("SELECT * FROM decodificaciones")
     data = cursor.fetchall()
     return render_template('inventario.html',data=data)
 
@@ -83,4 +82,4 @@ def logout():
 
 if __name__ == '__main__':
     webbrowser.open("http://127.0.0.1:5000/")
-    app.run(debug=True)
+    app.run(debug=True,use_reloader=False)

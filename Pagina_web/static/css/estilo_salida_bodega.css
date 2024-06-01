@@ -207,3 +207,15 @@ i{
   width:20vw;
   height:10vh;
 }
+
+.cuerpo_pagina{
+  display: flex;
+  flex-direction: column;
+}
+.items, .contenedor_envio{
+  width: 100wh;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
