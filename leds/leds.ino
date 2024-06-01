@@ -67,7 +67,7 @@ void loop() {
     }
     // close the connection:
     client.stop();
-    if (currentLine.startsWith("r") || currentLine.startsWith("g")){
+    if (currentLine.startsWith("r") || currentLine.startsWith("g") || currentLine.startsWith("b") || currentLine.startsWith("c") || currentLine.startsWith("y") || currentLine.startsWith("m") || currentLine.startsWith("w")|| currentLine.startsWith("o")){
       color = currentLine[0];
       nextLed = currentLine.substring(1).toInt();
     } else {
@@ -91,12 +91,24 @@ void loop() {
     }
 
     for (int i = 0; i < nleds; i++) {
-      if (leds[i] && currentLine.startsWith("g")){
-        strip.setPixelColor(i, 0, 255, 0);  // Green
-      } else if (leds[i] && currentLine.startsWith("r")){
-        strip.setPixelColor(i, 255, 0, 0); // Red
+      if (leds[i] && color == 'r'){
+        strip.setPixelColor(i, 255,   0,   0);  // Red
+      } else if (leds[i] && color == 'g'){
+        strip.setPixelColor(i,   0, 255,   0);  // Green
+      } else if (leds[i] && color == 'b'){
+        strip.setPixelColor(i,   0,   0, 255);  // Blue
+      } else if (leds[i] && color == 'c'){
+        strip.setPixelColor(i,   0, 255, 255);  // Cyan
+      } else if (leds[i] && color == 'y'){
+        strip.setPixelColor(i, 255, 255,   0);  // Yellow
+      } else if (leds[i] && color == 'm'){
+        strip.setPixelColor(i, 255,   0, 255);  // Magenta
+      } else if (leds[i] && color == 'o'){
+        strip.setPixelColor(i, 252,  98,   0);  // Orange
+      } else if (leds[i] && color == 'w'){
+        strip.setPixelColor(i, 255, 255, 255);  // White
       } else {
-        strip.setPixelColor(i, 0, 0, 0);  // Off
+        strip.setPixelColor(i,  0,    0,   0);  // Off
       }
       strip.show();
     }
