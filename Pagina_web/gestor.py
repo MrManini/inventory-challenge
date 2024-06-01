@@ -90,5 +90,7 @@ def open_browser():
     webbrowser.open_new_tab(url)
 
 if __name__ == '__main__':
+    cursor = mysql.cursor()
+    cursor.execute("TRUNCATE TABLE orders;")
     Timer(1, open_browser).start()
     app.run(debug=True, use_reloader=False)  # Deshabilita el cargador automático
