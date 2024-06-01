@@ -2,14 +2,22 @@ import cv2
 import numpy as np
 import pyzbar.pyzbar as pyzbar
 import urllib.request
-import socket
+import socket, pymysql
  
 cap = cv2.VideoCapture(0)
 font = cv2.FONT_HERSHEY_PLAIN
  
 url='http://192.168.0.100/'
 #cv2.namedWindow("live transmission", cv2.WINDOW_AUTOSIZE)
- 
+
+mysql = pymysql.connect(
+    host = 'localhost',
+    user = 'central',
+    password = 'Central-Stati0n',
+    db = 'storage',
+    cursorclass = pymysql.cursors.DictCursor
+)
+
 prev=""
 pres=""
 HOST = "192.168.0.125"
@@ -38,7 +46,13 @@ while True:
         else:
             print("Type:",obj.type)
             print("Data: ",obj.data)
-            send_command(obj.data)
+            try:
+                led = int(obj.data)
+                send_command(obj.data)
+            except ValueError:
+                if obj.data == b'pop_pedido':
+                    pass
+            
             print(f"Sending {obj.data}")
             prev=pres
         cv2.putText(frame, str(obj.data), (50, 50), font, 2,
