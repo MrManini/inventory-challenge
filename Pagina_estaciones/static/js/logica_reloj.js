@@ -9,11 +9,8 @@ let boton_envio=document.querySelector(".envio_tiempo")
 
 function start(){
     const currentDateTime = new Date();
-    console.log("Recogiendo en bodega inicio a la fecha "+ currentDateTime.toLocaleString())
-    if(sec2>1){
-        stop2()
+    //console.log("Recogiendo en bodega inicio a la fecha "+ currentDateTime.toLocaleString())
 
-    }
     startTimer=setInterval(()=>{
         //se usa ms++ con los ++ despues para que se retorne el valor antes
         //del incremento y, por ende, empieza a contar en cero
@@ -41,14 +38,12 @@ function start(){
 function stop(){
     clearInterval(startTimer);
     const currentTime = new Date();
-    console.log("Recogiendo en bodega termino a las "+ currentTime.toLocaleTimeString()+" el tiempo en bodega fue: "+hr+":"+min+":"+sec+":"+ms)
+    //console.log("Recogiendo en bodega termino a las "+ currentTime.toLocaleTimeString()+" el tiempo en bodega fue: "+hr+":"+min+":"+sec+":"+ms)
     hora.value=hr
     minutos.value=min
     segundos.value=sec
     milisegundos.value=ms
-    boton_envio.click()
-    reset2()
-    start2()
+
 }
 
 function reset(){
@@ -87,29 +82,66 @@ document.addEventListener('DOMContentLoaded', function() {
   
 
 var informe_estado = document.querySelector(".estado_proceso")
+var informe_estado_inactivo=document.querySelector(".estado_proceso_inactividad")
+const form = document.querySelector('.formulario_tiempos');
+
+form.addEventListener('submit', async (event) => {
+  event.preventDefault(); // Evita la recarga de página
+
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch('/', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (response.ok) {
+      console.log('Datos enviados correctamente');
+      // Realiza cualquier otra acción necesaria después de enviar los datos
+    } else {
+      console.error('Hubo un error al enviar los datos');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});
 
 function onScanSuccess(decodeText,decodeResult){       
     console.log(decodeText)
-    if(decodeText!==lastResult){
+    if(decodeText!==lastResult && decodeText=="work"){
         ++countResults;
         lastResult=decodeText;
-        reset()
         start()
+        stop2()
+        informe_estado.innerHTML="Contando tiempo"
+        informe_estado_inactivo.innerHTML="Tiempo pausado"
 
-        informe_estado.innerHTML="Nuevo proceso iniciado"
-
+    }
+    if(decodeText!==lastResult && decodeText=="time-out"){
+        ++countResults;
+        lastResult=decodeText;
+        start2()
+        stop()
+        informe_estado.innerHTML="Tiempo pausado"
+        informe_estado_inactivo.innerHTML="Contando tiempo"
+    }
+    if (decodeText!==lastResult && decodeText=="end"){
+        informe_estado.innerHTML="Enviando datos"
+        informe_estado_inactivo.innerHTML="Enviando datos"
+        stop()
+        stop2()
+        boton_envio.click()
 
         function actualizar_estado(){
-            informe_estado.innerHTML="Trabajando en el producto"
+            reset()
+            reset2()
+            informe_estado.innerHTML="Inactivo"
+            informe_estado_inactivo.innerHTML="Inactivo"
+        }  
+        setTimeout(actualizar_estado, 1000);
+    }
 
-        }
-          
-          setTimeout(actualizar_estado, 2000);
-    }
-    else{
-        stop()
-        informe_estado.innerHTML="Proceso finalizado"
-    }
 }
 
 var htmlscanner=new Html5QrcodeScanner(
@@ -123,7 +155,6 @@ let hora_inactivo=document.querySelector(".horas_inactivo")
 let minutos_inactivo=document.querySelector(".minutos_inactivo")
 let segundos_inactivo=document.querySelector(".segundos_inactivo")
 let milisegundos_inactivo=document.querySelector(".milisegundos_inactivo")
-let boton_envio_inactivo=document.querySelector(".envio_tiempo_inactivo")
 
 
 function start2(){
@@ -162,7 +193,6 @@ function stop2(){
     minutos_inactivo.value=min2
     segundos_inactivo.value=sec2
     milisegundos_inactivo.value=ms2
-    boton_envio_inactivo.click()
 
 }
 

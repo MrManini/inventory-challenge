@@ -13,79 +13,77 @@
 
 
 <div class="flexi">
+    <div class="contenedor_camara">
+        <div id="your-qr-result"></div>
+        <div style="display:flex; justify-content: center; border-radius: 10px">
+            <div id="my-qr-reader" style="width:370px; border-radius: 10px;">
+            </div>
+        </div>   
+    </div>   
 
-
-    <div class="wrapper">
-        <div class="punto_de_trabajo">Tiempo armado de producto</div>
+    <div class="contenedor_cronometros">
+        <div class="wrapper">
+            <div class="punto_de_trabajo">Tiempo armado de producto</div>
+            <div class="time">
+                <span class="hour">00</span>
+                <span class="dos_puntos">:</span>
+                <span class="minute">00</span>
+                <span class="dos_puntos">:</span>
+                <span class="second">00</span>
+                <span class="dos_puntos">:</span>
+                <span class="millisecond">00</span>
+            </div>
+            <div class="buttons">
+                <button class="estado_proceso">Inactivo</button>
+            </div>
+        </div>
+        <div class="wrapper">
+            <div class="punto_de_trabajo">Tiempo de inactividad</div>
+            <div class="time">
+                <span class="hour2">00</span>
+                <span class="dos_puntos">:</span>
+                <span class="minute2">00</span>
+                <span class="dos_puntos">:</span>
+                <span class="second2">00</span>
+                <span class="dos_puntos">:</span>
+                <span class="millisecond2">00</span>
+            </div>
+            <div class="buttons">
+                <button class="estado_proceso_inactividad">Inactivo</button>
+            </div>
+        
     
-        <div class="time">
-            <span class="hour">00</span>
-            <span class="dos_puntos">:</span>
-            <span class="minute">00</span>
-            <span class="dos_puntos">:</span>
-            <span class="second">00</span>
-            <span class="dos_puntos">:</span>
-            <span class="millisecond">00</span>
-        </div>
-        <div class="buttons">
-            <button class="estado_proceso">Inactivo</button>
-        </div>
-
-
-    </div>
-    <div class="wrapper">
-        <div class="punto_de_trabajo">Tiempo de inactividad</div>
-        <div class="time">
-            <span class="hour2">00</span>
-            <span class="dos_puntos">:</span>
-            <span class="minute2">00</span>
-            <span class="dos_puntos">:</span>
-            <span class="second2">00</span>
-            <span class="dos_puntos">:</span>
-            <span class="millisecond2">00</span>
-        </div>
-        <div class="buttons">
-            <button class="estado_proceso">Inactivo</button>
         </div>
     
-
-    </div>
-
-
-
-    
-</div>
-
-    <div id="your-qr-result"></div>
-<div style="display:flex; justify-content: center; border-radius: 10px">
-    <div id="my-qr-reader" style="width:400px; border-radius: 10px;">
     </div>
 
 </div>
 
 
+<div class="contenedor_pdf">
+    <iframe src="{{ url_for('static', filename='PDF/manuales.pdf') }}" width="600px" height="95%"></iframe>
+</div>
 
-<iframe name="miIframe" style="display:none;"></iframe>
 
-<form method="post" target="miIframe" style="display:none" action="/">
+</div>
+
+<form method="post" class="formulario_tiempos" style="display:none" action="/">
     <input type="number" class="horas" name="horas">
     <input type="number" class="minutos" name="minutos">
     <input type="number" class="segundos" name="segundos">
     <input type="number" class="milisegundos" name="milisegundos">
-    <input type="submit" class="envio_tiempo">
-</form>
 
-<iframe src="{{ url_for('static', filename='PDF/manuales.pdf') }}" width="600px" height="600px"></iframe>
-
-
-
-<form method="post" target="miIframe2" style="display:none" action="/ruta_inactivo">
     <input type="number" class="horas_inactivo" name="horas_inactivo">
     <input type="number" class="minutos_inactivo" name="minutos_inactivo">
     <input type="number" class="segundos_inactivo" name="segundos_inactivo">
     <input type="number" class="milisegundos_inactivo" name="milisegundos_inactivo">
-    <input type="submit" class="envio_tiempo_inactivo">
+
+    <input type="submit" class="envio_tiempo">
 </form>
+
+
+
+
 
 
 

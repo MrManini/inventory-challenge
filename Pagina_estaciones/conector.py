@@ -11,19 +11,17 @@ def index():
         minutos = request.form["minutos"]
         segundos = request.form["segundos"]
         milisegundos = request.form["milisegundos"]
-        print(horas, minutos, segundos, milisegundos)
-
-    return render_template("index.html")
-
-@app.route('/ruta_inactivo', methods=["POST", "GET"])
-def inactivo():
-    if request.method == "POST":
         horas_inactivo = request.form["horas_inactivo"]
         minutos_inactivo = request.form["minutos_inactivo"]
         segundos_inactivo = request.form["segundos_inactivo"]
         milisegundos_inactivo = request.form["milisegundos_inactivo"]
-        print(horas_inactivo, minutos_inactivo, segundos_inactivo, milisegundos_inactivo)
+        print(horas, minutos, segundos, milisegundos)
+        print("--")
+        print(horas_inactivo,minutos_inactivo,segundos_inactivo,milisegundos_inactivo)
+
     return render_template("index.html")
+
+
 
 def open_browser():
     url = "http://localhost:5000"

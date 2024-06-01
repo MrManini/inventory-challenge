@@ -11,11 +11,10 @@
  
 body{
     display: flex;
-    margin-top:30vh;
-
+    margin-top:5vh;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     background: url("https://images.unsplash.com/photo-1618556658017-fd9c732d1360?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D") center /cover no-repeat fixed;
 }
 
@@ -72,7 +71,6 @@ button{
     font-family: 'Abel', sans-serif;
     color:rgb(6, 6, 6);
     transform: translate(0,-10px);
-
 }
 .punto_de_trabajo{
     height:25%;
@@ -89,12 +87,15 @@ button{
 
 .envolvente{
     display:flex;
-    margin-top: -10vh;
+    flex-direction: row;
 }
+
 
 .flexi{
     display: flex;
     flex-direction: column;
+    height: auto;
+    transform: translateX(-2vw);
 }
 
 #my-qr-reader{
@@ -104,4 +105,19 @@ button{
 #html5-qrcode-anchor-scan-type-change{
     display:none;
     opacity: 0;
+    height: 0px;
 }
+.contenedor_cronometros{
+    display:flex;
+    flex-direction: column;
+}
+
+.contenedor_camara{
+    margin-top: -8vh;
+    height:450px;
+    margin-right: 1vw;
+}
+.contenedor_pdf{
+    transform: translateX(2vw);
+}
+
