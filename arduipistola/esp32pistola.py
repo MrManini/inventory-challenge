@@ -54,9 +54,8 @@ while True:
                 led = int(obj.data)
                 if mode == "add":
                     cursor.execute("UPDATE inventory SET amount = amount + %s WHERE id = %s;", (pedido[led+1], led+1))
-
-                send_command(obj.data)
-                print(f"Sending {obj.data}")
+                    send_command(obj.data)
+                    print(f"Sending {obj.data}")
             except ValueError:
                 if obj.data == b'pop_pedido':
                     cursor.execute("SELECT * FROM ORDER BY id ASC LIMIT 1;")
