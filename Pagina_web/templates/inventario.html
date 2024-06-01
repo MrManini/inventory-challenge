@@ -14,7 +14,6 @@
             <button type="submit" class="boton_refrescar">
                 <i class="fa fa-rotate-right" aria-hidden="true" id="boton_salir" ></i>
             </button>
-
     </form>
     <table>
         <tr>
@@ -30,6 +29,22 @@
         </tr>
         {% endfor %}
     </table> 
+
+    <div class="contenedor_boton_retornar">
+        {%if last_state == "entrada" %}
+        <div class="boton_retornar">
+            <a href="{{ url_for('entrada_bodega') }}">
+                <i class="fa fa-backward" aria-hidden="true" id="boton_salir"></i>
+            </a>
+        </div>
+        {% elif last_state == "salida" %}
+        <div class="boton_retornar">
+            <a href="{{ url_for('salida_bodega') }}">
+                <i class="fa fa-backward" aria-hidden="true" id="boton_salir"></i>
+            </a>
+        </div>
+        {% endif %}
+    </div>
 
 </body>
 </html>

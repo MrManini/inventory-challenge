@@ -25,16 +25,3 @@ for (let i=1;i<=4;i++){
     });
     
   }
-
-
-
-
-
-
-//redireccion para ir a la pestaña de sacar elementos de bodega
-var redirigir_sacar_elemento=document.getElementById("redirigir_sacar_elemento")
-
-redirigir_sacar_elemento.addEventListener("click",function(){
-    location.href="sacar_bodega.html"
-})
-

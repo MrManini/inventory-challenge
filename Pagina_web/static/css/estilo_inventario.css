@@ -58,6 +58,17 @@
     margin-right: 10px;
   }
 
+  .boton_retornar{
+      background-color: #f00707; 
+      border:none;
+      color:white;
+      border-radius: 100%;
+      padding:15px 20px 15px 20px;
+      font-size: 16px;
+      margin-left: 20px;
+      margin-right: 10px;
+  }
+
   i{
     color: white;
   }

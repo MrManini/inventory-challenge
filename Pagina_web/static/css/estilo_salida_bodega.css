@@ -45,6 +45,7 @@ a:active {
     margin: 0;
     margin-top:0vh;
     color: #224;
+    justify-content: center;
     background:
     url(https://images6.alphacoders.com/421/421437.jpg)
     center / cover no-repeat fixed;
@@ -53,7 +54,7 @@ a:active {
   
   .header{
     height:auto;
-    width:100%;
+    width:80%;
     display:flex;
     align-items:center;
     justify-content: center;
@@ -203,7 +204,7 @@ i{
   color:white;
   border-radius: 20px;
   padding:10px;
-  font-size: 25px;
+  font-size: 30px;
   width:20vw;
   height:10vh;
 }
