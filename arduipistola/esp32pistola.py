@@ -17,6 +17,7 @@ mysql = pymysql.connect(
     db = 'storage',
     cursorclass = pymysql.cursors.DictCursor
 )
+cursor = mysql.cursor();
 
 prev=""
 pres=""
@@ -49,12 +50,12 @@ while True:
             try:
                 led = int(obj.data)
                 send_command(obj.data)
+                print(f"Sending {obj.data}")
             except ValueError:
                 if obj.data == b'pop_pedido':
-                    pass
-            
-            print(f"Sending {obj.data}")
-            prev=pres
+                    cursor.execute("SELECT * FROM orders WHERE id = 1;")
+                    sql_update = "UPDATE inventory SET amount = amount + %s WHERE id = %s;"
+            prev = pres
         cv2.putText(frame, str(obj.data), (50, 50), font, 2,
                     (255, 0, 0), 3)
  
