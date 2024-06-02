@@ -107,14 +107,24 @@ form.addEventListener('submit', async (event) => {
     console.error('Error:', error);
   }
 });
+validador_reset=false      
 
-function onScanSuccess(decodeText,decodeResult){       
+function onScanSuccess(decodeText,decodeResult){ 
     console.log(decodeText)
     if(decodeText!==lastResult && decodeText=="work"){
         ++countResults;
         lastResult=decodeText;
-        start()
-        stop2()
+        if (validador_reset==false){
+            start()
+            stop2()
+        }
+        else{
+            reset()
+            reset2()
+            start()
+            validador_reset=false
+        }
+
         informe_estado.innerHTML="Contando tiempo"
         informe_estado_inactivo.innerHTML="Tiempo pausado"
 
@@ -122,21 +132,31 @@ function onScanSuccess(decodeText,decodeResult){
     if(decodeText!==lastResult && decodeText=="time-out"){
         ++countResults;
         lastResult=decodeText;
-        start2()
-        stop()
+        if (validador_reset==false){
+            start2()
+            stop()
+        }
+        else{
+            reset()
+            reset2()
+            start2()
+            validador_reset=false
+        }
         informe_estado.innerHTML="Tiempo pausado"
         informe_estado_inactivo.innerHTML="Contando tiempo"
     }
     if (decodeText!==lastResult && decodeText=="end"){
+        ++countResults
+        lastResult=decodeText
         informe_estado.innerHTML="Enviando datos"
         informe_estado_inactivo.innerHTML="Enviando datos"
         stop()
         stop2()
         boton_envio.click()
-
+        validador_reset=true
         function actualizar_estado(){
-            reset()
-            reset2()
+            //reset()
+            //reset2()
             informe_estado.innerHTML="Inactivo"
             informe_estado_inactivo.innerHTML="Inactivo"
         }  
