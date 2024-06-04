@@ -61,6 +61,7 @@ while True:
                     cursor.execute("SELECT * FROM ORDER BY id ASC LIMIT 1;")
                     pedido = cursor.fetchone()
                     if pedido is not None:
+                        send_command("-1")
                         mode = "add"
                         cursor.execute("DELETE FROM orders ORDER BY id ASC LIMIT 1;")
                         mysql.commit()
@@ -68,9 +69,9 @@ while True:
                             if pedido[f"kit{i}"] != 0:
                                 send_command(str(i-1), "c")
                                 print(f"Sending c{i-1}")
-                        #sql_update = "UPDATE inventory SET amount = amount + %s WHERE id = %s;"
                 elif obj.data == b'cancel':
                     mode = "subtract"
+                    send_command("-1")
             prev = pres
         cv2.putText(frame, str(obj.data), (50, 50), font, 2,
                     (255, 0, 0), 3)
