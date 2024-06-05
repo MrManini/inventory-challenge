@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_reloj.css') }}">
 
 </head>
-<body>
+<body background="../static/imags/fondo_estaciones.jpg">
 
 <div class="envolvente">
 
@@ -85,9 +85,10 @@
 
 
 
+<!--<script src="https://unpkg.com/html5-qrcode"></script>
 
-
-<script src="https://unpkg.com/html5-qrcode"></script>
+-->
+<script src="{{ url_for('static', filename='js/html5-qrcode.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/logica_reloj.js') }}"></script>
 
 </body>
