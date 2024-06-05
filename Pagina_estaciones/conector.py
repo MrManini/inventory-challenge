@@ -1,27 +1,49 @@
 from flask import Flask, render_template, request, redirect, url_for
-import webbrowser
+import webbrowser, pymysql, json, pytz
 from threading import Timer
+from datetime import datetime, timedelta
 
 app = Flask(__name__, static_folder="static")
+
+f = open('Pagina_estaciones/estacion.json')
+data = json.load(f)
+f.close()
+
+mysql = pymysql.connect(
+    host = data['host'],
+    user = data['user'],
+    password = data['password'],
+    db = data['database'],
+    cursorclass = pymysql.cursors.DictCursor
+)
 
 @app.route('/', methods=["POST", "GET"])
 def index():
     if request.method == "POST":
-        horas = request.form["horas"]
-        minutos = request.form["minutos"]
-        segundos = request.form["segundos"]
-        milisegundos = request.form["milisegundos"]
-        horas_inactivo = request.form["horas_inactivo"]
-        minutos_inactivo = request.form["minutos_inactivo"]
-        segundos_inactivo = request.form["segundos_inactivo"]
-        milisegundos_inactivo = request.form["milisegundos_inactivo"]
-        print(horas, minutos, segundos, milisegundos)
-        print("--")
-        print(horas_inactivo,minutos_inactivo,segundos_inactivo,milisegundos_inactivo)
+        horas = int(request.form["horas"])
+        minutos = int(request.form["minutos"])
+        segundos = int(request.form["segundos"])
+        milisegundos = int(request.form["milisegundos"])*10
+        horas_inactivo = int(request.form["horas_inactivo"])
+        minutos_inactivo = int(request.form["minutos_inactivo"])
+        segundos_inactivo = int(request.form["segundos_inactivo"])
+        milisegundos_inactivo = int(request.form["milisegundos_inactivo"])*10
+        
+        work = timedelta(hours=horas, minutes=minutos, seconds=segundos, milliseconds=milisegundos)
+        timeout = timedelta(hours=horas_inactivo, minutes=minutos_inactivo, seconds=segundos_inactivo, milliseconds=milisegundos_inactivo)
+        total = work + timeout
 
     return render_template("index.html")
 
+def independent_stations(work, timeout, total):
+    now = datetime.now(pytz.timezone('America/Bogota'))
+    now = now.strftime('%Y-%m-%d %H:%M:%S')
+    station = data['user'][-1]
 
+    cursor = mysql.cursor()
+    query = "INSERT INTO `stations` VALUES (%s, %s, %s, %s, %s)"
+    cursor.execute(query, (now, station, work, timeout, total))
+    mysql.commit()
 
 def open_browser():
     url = "http://localhost:5000"
