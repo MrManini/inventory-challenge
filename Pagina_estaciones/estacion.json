@@ -1,0 +1,6 @@
+{
+    "host": "192.168.0.112",
+    "user": "estacion1",
+    "password": "Estacion-1",
+    "database": "storage"
+}
