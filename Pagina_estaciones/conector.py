@@ -41,7 +41,7 @@ def index():
 
 
 def assembly_line(work, timeout):
-    station = data['user'][-1]
+    station = int(data['user'][-1])
     
     if station == 1:
         now = datetime.now(pytz.timezone('America/Bogota'))
@@ -56,7 +56,7 @@ def assembly_line(work, timeout):
         cursor = mysql.cursor()
         query = """
                 UPDATE assembly_line
-                SET (EndTime, WorkTime4, TimeOut4) VALUES (%s, %s, %s)
+                SET EndTime=%s, WorkTime4=%s, TimeOut4=%s
                 WHERE WorkTime4 = '00:00:00.00'
                 ORDER BY StartTime ASC LIMIT 1
                 """
@@ -87,11 +87,11 @@ def assembly_line(work, timeout):
         cursor = mysql.cursor()
         query = """
             UPDATE assembly_line 
-            SET (WorkTime%s, TimeOut%s) VALUES (%s, %s)
-            WHERE TotalTimeOut = '00:00:00.00'
+            SET WorkTime%s = %s, TimeOut%s = %s
+            WHERE WorkTime%s = '00:00:00.00'
             ORDER BY StartTime ASC LIMIT 1
         """
-        cursor.execute(query, (work, timeout))
+        cursor.execute(query, (station, work, station, timeout, station))
         mysql.commit()
 
 def independent_stations(work, timeout, total):
