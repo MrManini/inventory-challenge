@@ -72,3 +72,14 @@
   i{
     color: white;
   }
+
+  .tipo_de_consulta{
+    position: absolute;
+    left: 2vw;
+    font-size: 20px;
+    border-radius: 20px;
+    outline: none;
+    font-family: sans-serif;
+    color: lightslategray;
+    padding:15px
+  }

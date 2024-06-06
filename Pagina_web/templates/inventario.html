@@ -10,11 +10,18 @@
 
 </head>
 <body>
-    <form method="post">
+    <form method="post" action="/inventario">
+            <select class="tipo_de_consulta" name="tipo_de_consulta" >
+                <option value="Consultar inventario">Consultar inventario</option>
+                <option value="Consultar tiempo de linea de produccion">Consultar tiempo de linea de produccion</option>
+                <option value="Consultar tiempo de estaciones independientes">Consultar tiempo de estaciones independientes</option>
+            </select>
             <button type="submit" class="boton_refrescar">
                 <i class="fa fa-rotate-right" aria-hidden="true" id="boton_salir" ></i>
             </button>
     </form>
+
+    {% if data %}
     <table>
         <tr>
             {% for column in data[0].keys() %}
@@ -29,7 +36,10 @@
         </tr>
         {% endfor %}
     </table> 
-
+    {% else %}
+    <!-- Código para mostrar un mensaje cuando no hay datos -->
+    <p>No hay datos disponibles.</p>
+{% endif %}
     <div class="contenedor_boton_retornar">
         {%if last_state == "entrada" %}
         <div class="boton_retornar">

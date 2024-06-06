@@ -4,7 +4,6 @@ import pymysql
 from threading import Timer
 
 app = Flask(__name__, static_folder="static")
-
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'central'
 app.config['MYSQL_PASSWORD'] = 'Central-Stati0n'
@@ -70,16 +69,27 @@ def salida_bodega(): #TODO: cambiar modo de lectura y cambiar a 31
 
 @app.route('/inventario',methods=['GET','POST'])
 def inventario():
-    if request.method=='POST':
+    data = []  # Inicializar data con una lista vacía
+
+    if request.method == 'POST':
         cursor = mysql.cursor()
         mysql.commit()
-    cursor = mysql.cursor()
-    cursor.execute("SELECT * FROM inventory")
-    data = cursor.fetchall()
+        consulta = request.form.get("tipo_de_consulta")
+
+        if consulta == "Consultar inventario":
+            print("Hola")
+            cursor = mysql.cursor()
+            cursor.execute("SELECT * FROM inventory")
+            data = cursor.fetchall()
+        elif consulta == "Consultar tiempo de linea de produccion":
+            print("mundo")
+            cursor = mysql.cursor()
+            cursor.execute("SELECT * FROM pruebas")
+            data = cursor.fetchall()
+
     previous_state = session.get('previous_state', 'vacio')  # Obtiene el estado anterior de la sesión
 
-    return render_template('inventario.html',data=data,last_state=previous_state)
-
+    return render_template('inventario.html', data=data, last_state=previous_state)
 @app.route('/logout')
 def logout():
     return redirect(url_for('index'))
