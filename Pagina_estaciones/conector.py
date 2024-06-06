@@ -5,17 +5,17 @@ from datetime import datetime, timedelta
 
 app = Flask(__name__, static_folder="static")
 
-#f = open('Pagina_estaciones/estacion.json')
-#data = json.load(f)
-#f.close()
-'''
+f = open('Pagina_estaciones/estacion.json')
+data = json.load(f)
+f.close()
+
 mysql = pymysql.connect(
     host = data['host'],
     user = data['user'],
     password = data['password'],
     db = data['database'],
     cursorclass = pymysql.cursors.DictCursor
-)'''
+)
 
 @app.route('/', methods=["POST", "GET"])
 def index():
@@ -29,29 +29,80 @@ def index():
         segundos_inactivo = int(request.form["segundos_inactivo"])
         milisegundos_inactivo = int(request.form["milisegundos_inactivo"])*10
         tipo_produccion = request.form.get("tipo_de_produccion", "off")  # Usar get() con un valor predeterminado
-        if tipo_produccion=="on":
-            print("Hola")
-        else:
-            print("mundo")
         work = timedelta(hours=horas, minutes=minutos, seconds=segundos, milliseconds=milisegundos)
         timeout = timedelta(hours=horas_inactivo, minutes=minutos_inactivo, seconds=segundos_inactivo, milliseconds=milisegundos_inactivo)
         total = work + timeout
-        independent_stations(work, timeout, total)
+        if tipo_produccion=="on":
+            independent_stations(work, timeout, total)
+        else:
+            print("mundo")
 
     return render_template("index.html")
 
 
-
+def assembly_line(work, timeout):
+    station = data['user'][-1]
+    
+    if station == 1:
+        now = datetime.now(pytz.timezone('America/Bogota'))
+        now = now.strftime('%Y-%m-%d %H:%M:%S')
+        cursor = mysql.cursor()
+        query = "INSERT INTO assembly_line (StartTime, WorkTime1, TimeOut1) VALUES (%s, %s, %s)"
+        cursor.execute(query, (now, work, timeout))
+        mysql.commit()
+    elif station == 4:
+        now = datetime.now(pytz.timezone('America/Bogota'))
+        now = now.strftime('%Y-%m-%d %H:%M:%S')
+        cursor = mysql.cursor()
+        query = """
+                UPDATE assembly_line
+                SET (EndTime, WorkTime4, TimeOut4) VALUES (%s, %s, %s)
+                WHERE WorkTime4 = '00:00:00.00'
+                ORDER BY StartTime ASC LIMIT 1
+                """
+        cursor.execute(query, (now, work, timeout))
+        query = """
+            UPDATE assembly_line 
+            SET TotalWorkTime = ADDTIME(ADDTIME(ADDTIME(WorkTime1, WorkTime2), WorkTime3), WorkTime4)
+            WHERE TotalWorkTime = '00:00:00.00'
+            ORDER BY StartTime ASC LIMIT 1
+        """
+        cursor.execute(query)
+        query = """
+            UPDATE assembly_line 
+            SET TotalTimeOut = ADDTIME(ADDTIME(ADDTIME(TimeOut1, TimeOut2), TimeOut3), TimeOut4)
+            WHERE TotalTimeOut = '00:00:00.00'
+            ORDER BY StartTime ASC LIMIT 1
+        """
+        cursor.execute(query)
+        query = """
+            UPDATE assembly_line 
+            SET TotalTime = ADDTIME(TotalWorkTime, TotalTimeOut)
+            WHERE TotalTimeOut = '00:00:00.00'
+            ORDER BY StartTime ASC LIMIT 1
+        """
+        cursor.execute(query)
+        mysql.commit()
+    else:
+        cursor = mysql.cursor()
+        query = """
+            UPDATE assembly_line 
+            SET (WorkTime%s, TimeOut%s) VALUES (%s, %s)
+            WHERE TotalTimeOut = '00:00:00.00'
+            ORDER BY StartTime ASC LIMIT 1
+        """
+        cursor.execute(query, (work, timeout))
+        mysql.commit()
 
 def independent_stations(work, timeout, total):
     now = datetime.now(pytz.timezone('America/Bogota'))
     now = now.strftime('%Y-%m-%d %H:%M:%S')
-    #station = data['user'][-1]
+    station = data['user'][-1]
 
-    #cursor = mysql.cursor()
+    cursor = mysql.cursor()
     query = "INSERT INTO `stations` VALUES (%s, %s, %s, %s, %s)"
-    #cursor.execute(query, (now, station, work, timeout, total))
-    #mysql.commit()
+    cursor.execute(query, (now, station, work, timeout, total))
+    mysql.commit()
 
 def open_browser():
     url = "http://localhost:5000"
