@@ -92,7 +92,13 @@ a:active {
 
 
 
+.contenedor_informacion{
+  width: 100%;
+  height: 10%;
+  justify-content: center;
+  color: white;
 
+}
   
   .card {
     width: 300px;
@@ -101,7 +107,7 @@ a:active {
     justify-content: space-between;
     margin:20px;
     max-width: 500px;
-    height: 370px;
+    height: 420px;
     padding:10px;
     border: 1px solid rgba(255, 255, 255, .25);
     border-radius: 20px;
@@ -112,13 +118,13 @@ a:active {
   }
   
   .contenedor_imagenes{
-    height:75%;
+    height:70%;
     width:100%;
     padding:10px;
 }
 
   .contenedor_seleccion{
-    height:25%;
+    height:20%;
     width:100%;
     padding:10px;
     border-radius: 20px;

@@ -7,7 +7,7 @@ import socket, pymysql, time, requests
 cap = cv2.VideoCapture(0)
 font = cv2.FONT_HERSHEY_PLAIN
  
-url='http://192.168.1.8/'
+url='http://192.168.0.150/'
 blink_url = url + "blink"
 cv2.namedWindow("live transmission", cv2.WINDOW_AUTOSIZE)
 
@@ -26,18 +26,18 @@ HOST = "192.168.0.125"
 PORT = 8080
 mode = "subtract"
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#s.connect((HOST, PORT))
-
 def send_blink_signal():
     try:
         requests.get(blink_url)
     except Exception as e:
         print(f"Failed to send blink signal: {e}")
 
-def send_command(command: bytes, color: bytes = b"") -> None:
-    #s.sendall(color+command)
-    print(f"Sending {str(color)+str(command)}")
+def send_command(command, color = ""):
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((HOST, PORT))
+        light = color + command
+        s.sendall(light.encode())
+
 
 print("Inicio")
 while True:
@@ -61,34 +61,34 @@ while True:
                 if mode == "add":
                     cursor.execute("UPDATE inventory SET amount = amount + %s WHERE id = %s;", (pedido[f"kit{led+1}"], int(led+1)))
                     mysql.commit()
-                    send_command(obj.data)
+                    send_command(str(obj.data))
                     pedido[f"kit{led+1}"] = 0
                     if sum(pedido.values()) == 0:
                         mode = "subtract"
-                        send_command(b"-1")
+                        send_command("-1")
                 else:
                     cursor.execute("SELECT * FROM inventory WHERE id = %s;", (led+1,))
                     producto = cursor.fetchone()
                     if producto["amount"] > 0:
                         cursor.execute("UPDATE inventory SET amount = amount - 1 WHERE id = %s;", (led+1,))
                         mysql.commit()
-                        send_command(obj.data)
+                        send_command(str(obj.data))
             except ValueError:
                 if obj.data == b'pop_pedido':
                     cursor.execute("SELECT * FROM orders ORDER BY id ASC LIMIT 1;")
                     pedido = cursor.fetchone()
                     print(pedido)
                     if pedido is not None:
-                        send_command(b"-1")
+                        send_command("-1")
                         mode = "add"
                         cursor.execute("DELETE FROM orders ORDER BY id ASC LIMIT 1;")
-                        mysql.commit()
                         for i in range(1, 5): #TODO: Cambiar a 31 cuando esté lista la página web
                             if pedido[f"kit{i}"] != 0:
-                                send_command(str(i-1), b"c")
+                                send_command(str(i-1), "w")
+                        mysql.commit()
                 elif obj.data == b'cancel':
                     mode = "subtract"
-                    send_command(b"-1")
+                    send_command("-1")
             prev = pres
         cv2.putText(frame, str(obj.data), (50, 50), font, 2,
                     (255, 0, 0), 3)

@@ -1,19 +1,17 @@
 import webbrowser
 from flask import Flask, render_template, request,redirect,url_for, session
-import pymysql
+import pymysql, socket
 from threading import Timer
 
 app = Flask(__name__, static_folder="static")
 
-'''app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'central'
 app.config['MYSQL_PASSWORD'] = 'Central-Stati0n'
 app.config['MYSQL_DB'] = 'storage'
-'''
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'jhonatan'
-app.config['MYSQL_DB'] = 'datostiempo'
+
+HOST = "192.168.0.125"
+PORT = 8080
 
 mysql = pymysql.connect(
     host=app.config['MYSQL_HOST'],
@@ -25,6 +23,11 @@ mysql = pymysql.connect(
 
 app.secret_key = 'secret_key'  
 
+def send_command(command, color = ""):
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.connect((HOST, PORT))
+        light = color + command
+        s.sendall(light.encode())
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -70,6 +73,8 @@ def salida_bodega(): #TODO: cambiar modo de lectura y cambiar a 31
         producto4=request.form["s_cantidad_producto4"]
         print(f"Numero salida: {producto4}")
 
+        send_command('0', 'w')
+        send_command('1', 'w')
     return render_template('sacar_bodega.html')
 
 @app.route('/inventario',methods=['GET','POST'])
@@ -84,12 +89,12 @@ def inventario():
         if consulta == "Consultar inventario":
             print("Hola")
             cursor = mysql.cursor()
-            cursor.execute("SELECT * FROM inventory")
+            cursor.execute("SELECT * FROM inventory;")
             data = cursor.fetchall()
         elif consulta == "Consultar tiempo de linea de produccion":
             print("mundo")
             cursor = mysql.cursor()
-            cursor.execute("SELECT * FROM pruebas")
+            cursor.execute("SELECT * FROM stations;")
             data = cursor.fetchall()
 
     previous_state = session.get('previous_state', 'vacio')  # Obtiene el estado anterior de la sesión

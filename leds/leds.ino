@@ -8,17 +8,18 @@ int brightness = 30;
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(nleds, 15, NEO_GRB + NEO_KHZ800);  // Arduino Pin 3 Data Output
 int nextLed;
 bool leds[nleds];
+char colors[nleds];
 
 ///////please enter your sensitive data in the Secret tab/arduino_secrets.h
 char ssid[] = "PGI_Acceso";        // your network SSID (name)
 char pass[] = "usuario123";    // your network password (use for WPA, or use as key for WEP)
 int keyIndex = 0;   // your network key index number (needed only for WEP)
-char color = 'n';
 
 int status = WL_IDLE_STATUS;
 WiFiServer server(8080);
 
 void setup() {
+  Serial.begin(9600);
   strip.begin();
   strip.setBrightness(brightness);
   strip.show();
@@ -48,6 +49,9 @@ void setup() {
   server.begin();                           // start the web server on port 80
   digitalWrite(LEDG, HIGH);
   digitalWrite(LEDB, LOW);
+  for (int i = 0; i < nleds; i++){
+    colors[i] = 'n';
+  }
 }
 
 
@@ -67,16 +71,23 @@ void loop() {
     }
     // close the connection:
     client.stop();
-    if (currentLine.startsWith("r") || currentLine.startsWith("g") || currentLine.startsWith("b") || currentLine.startsWith("c") || currentLine.startsWith("y") || currentLine.startsWith("m") || currentLine.startsWith("w")|| currentLine.startsWith("o")){
-      color = currentLine[0];
+    Serial.println(currentLine);
+    if (currentLine.startsWith("r") || currentLine.startsWith("g") || currentLine.startsWith("c") || currentLine.startsWith("y") || currentLine.startsWith("m") || currentLine.startsWith("w")|| currentLine.startsWith("o")){
       nextLed = currentLine.substring(1).toInt();
-    } else {
-      nextLed = currentLine.toInt();
-    }
-
-    if (0 <= nextLed && nextLed <= nleds && color != 'n'){
       leds[nextLed] = true;
-    } else if (0 <= nextLed && nextLed <= nleds && color == 'n'){
+      if (0 <= nextLed && nextLed <= nleds){
+        colors[nextLed] = currentLine[0];
+      } else if (nextLed == 99){
+        for (int i = 0; i < nleds; i++){
+          colors[i] = currentLine[0];
+        }
+      } else if (nextLed == -1){
+        for (int i = 0; i < nleds; i++){
+          colors[i] = 'n';
+        }
+      } 
+    } else {
+      nextLed = currentLine.substring(2,4).toInt();
       leds[nextLed] = false;
     }
     
@@ -91,21 +102,19 @@ void loop() {
     }
 
     for (int i = 0; i < nleds; i++) {
-      if (leds[i] && color == 'r'){
+      if (leds[i] && colors[i] == 'r'){
         strip.setPixelColor(i, 255,   0,   0);  // Red
-      } else if (leds[i] && color == 'g'){
+      } else if (leds[i] && colors[i] == 'g'){
         strip.setPixelColor(i,   0, 255,   0);  // Green
-      } else if (leds[i] && color == 'b'){
-        strip.setPixelColor(i,   0,   0, 255);  // Blue
-      } else if (leds[i] && color == 'c'){
+      } else if (leds[i] && colors[i] == 'c'){
         strip.setPixelColor(i,   0, 255, 255);  // Cyan
-      } else if (leds[i] && color == 'y'){
+      } else if (leds[i] && colors[i] == 'y'){
         strip.setPixelColor(i, 255, 255,   0);  // Yellow
-      } else if (leds[i] && color == 'm'){
+      } else if (leds[i] && colors[i] == 'm'){
         strip.setPixelColor(i, 255,   0, 255);  // Magenta
-      } else if (leds[i] && color == 'o'){
+      } else if (leds[i] && colors[i] == 'o'){
         strip.setPixelColor(i, 252,  98,   0);  // Orange
-      } else if (leds[i] && color == 'w'){
+      } else if (leds[i] && colors[i] == 'w'){
         strip.setPixelColor(i, 255, 255, 255);  // White
       } else {
         strip.setPixelColor(i,  0,    0,   0);  // Off
@@ -113,5 +122,4 @@ void loop() {
       strip.show();
     }
   }
-  color = 'n';
 }
