@@ -36,8 +36,8 @@ def send_blink_signal():
         print(f"Failed to send blink signal: {e}")
 
 def send_command(command: bytes, color: bytes = b"") -> None:
-    s.sendall(color+command)
-    print(f"Sending {color+command}")
+    #s.sendall(color+command)
+    print(f"Sending {str(color)+str(command)}")
 
 print("Inicio")
 while True:
@@ -52,32 +52,30 @@ while True:
     decodedObjects = pyzbar.decode(frame)
     for obj in decodedObjects:
         pres = obj.data
-        if prev == pres:
-            pass
-        else:
+        if prev != pres:
             print("Type:",obj.type)
             print("Data: ",obj.data)
             send_blink_signal()
             try: #TODO: añadir modo resta
                 led = int(obj.data)
                 if mode == "add":
-                    cursor.execute("UPDATE inventory SET amount = amount + %s WHERE id = %s;", (pedido[led+1], led+1))
+                    cursor.execute("UPDATE inventory SET amount = amount + %s WHERE id = %s;", (pedido[f"kit{led+1}"], int(led+1)))
+                    mysql.commit()
                     send_command(obj.data)
-                    print(f"Sending {obj.data}")
+                    pedido[f"kit{led+1}"] = 0
             except ValueError:
                 if obj.data == b'pop_pedido':
                     cursor.execute("SELECT * FROM orders ORDER BY id ASC LIMIT 1;")
                     pedido = cursor.fetchone()
                     print(pedido)
                     if pedido is not None:
-                        send_command("-1")
+                        send_command(b"-1")
                         mode = "add"
                         cursor.execute("DELETE FROM orders ORDER BY id ASC LIMIT 1;")
                         mysql.commit()
                         for i in range(1, 5): #TODO: Cambiar a 31 cuando esté lista la página web
                             if pedido[f"kit{i}"] != 0:
-                                send_command(str(i-1), "c")
-                                print(f"Sending c{i-1}")
+                                send_command(str(i-1), b"c")
                 elif obj.data == b'cancel':
                     mode = "subtract"
                     send_command(b"-1")
