@@ -6,13 +6,9 @@ const char* WIFI_SSID = "PGI_Acceso";
 const char* WIFI_PASS = "usuario123";
  
 WebServer server(80);
- 
- 
 static auto loRes = esp32cam::Resolution::find(320, 240);
-static auto midRes = esp32cam::Resolution::find(350, 530);
-static auto hiRes = esp32cam::Resolution::find(800, 600);
-void serveJpg()
-{
+
+void serveJpg(){
   auto frame = esp32cam::capture();
   if (frame == nullptr) {
     Serial.println("CAPTURE FAIL");
@@ -28,39 +24,35 @@ void serveJpg()
   frame->writeTo(client);
 }
  
-void handleJpgLo()
-{
+void handleJpgLo(){
   if (!esp32cam::Camera.changeResolution(loRes)) {
     Serial.println("SET-LO-RES FAIL");
   }
   serveJpg();
 }
- 
-void handleJpgHi()
-{
-  if (!esp32cam::Camera.changeResolution(hiRes)) {
-    Serial.println("SET-HI-RES FAIL");
-  }
-  serveJpg();
+
+void handleBlink(){
+  blink();
+  server.send(200, "OK");
 }
- 
-void handleJpgMid()
-{
-  if (!esp32cam::Camera.changeResolution(midRes)) {
-    Serial.println("SET-MID-RES FAIL");
+
+void blink(){
+  for (int i = 0; i < 2; i++){
+    digitalWrite(4, HIGH);
+    delay(125);
+    digitalWrite(4, LOW);
+    delay(125);
   }
-  serveJpg();
 }
- 
- 
-void  setup(){
+
+void setup(){
   Serial.begin(115200);
   Serial.println();
   {
     using namespace esp32cam;
     Config cfg;
     cfg.setPins(pins::AiThinker);
-    cfg.setResolution(hiRes);
+    cfg.setResolution(loRes);
     cfg.setBufferCount(2);
     cfg.setJpeg(80);
  
@@ -69,26 +61,23 @@ void  setup(){
   }
   WiFi.persistent(false);
   WiFi.mode(WIFI_STA);
-  IPAddress ip(192, 168, 1, 100);
+  IPAddress ip(192, 168, 1, 10);
   WiFi.config(ip);
   WiFi.begin(WIFI_SSID, WIFI_PASS);
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
   }
+  blink();
   Serial.print("http://");
-  Serial.println(WiFi.localIP());
-  Serial.println("  /cam-lo.jpg");
-  Serial.println("  /cam-hi.jpg");
-  Serial.println("  /cam-mid.jpg");
+  Serial.print(WiFi.localIP());
+  Serial.println("/cam-lo.jpg");
  
   server.on("/cam-lo.jpg", handleJpgLo);
-  server.on("/cam-hi.jpg", handleJpgHi);
-  server.on("/cam-mid.jpg", handleJpgMid);
+  server.on("/blink", handleBlink);
  
   server.begin();
 }
  
-void loop()
-{
+void loop(){
   server.handleClient();
 }
