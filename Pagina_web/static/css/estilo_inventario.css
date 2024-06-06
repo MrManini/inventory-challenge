@@ -54,7 +54,7 @@
     border-radius: 100%;
     padding:15px 20px 15px 20px;
     font-size: 20px;
-    margin-left: -80px;
+    margin-left: -200px;
     margin-right: 10px;
   }
 
@@ -74,12 +74,28 @@
   }
 
   .tipo_de_consulta{
-    position: absolute;
-    left: 2vw;
     font-size: 20px;
     border-radius: 20px;
     outline: none;
     font-family: sans-serif;
     color: lightslategray;
-    padding:15px
+    padding:15px;
+    left:50%;
+    transform:translate(-50%);
   }
+
+.tabla_datos{
+  margin-top:10vh
+}
+
+.contenedor_boton_retornar{
+  margin-left: 30%;
+}
+
+.contenedor_header{
+  height: 10vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
