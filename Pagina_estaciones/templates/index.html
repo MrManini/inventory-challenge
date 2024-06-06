@@ -79,40 +79,9 @@
     <input type="number" class="segundos_inactivo" name="segundos_inactivo" style="display:none">
     <input type="number" class="milisegundos_inactivo" name="milisegundos_inactivo" style="display:none">
     <input type="checkbox" class="tipo_de_produccion" name="tipo_de_produccion">
+    <label class="label_ldp">Linea de produccion</label>
     <input type="submit" class="envio_tiempo" style="display:none">
 </form>
-
-<!--
-
-<select id="optionSelect">
-    <option value="">--Seleccione modo de producción</option>
-    <option value="opcion1">Produccion individual</option>
-    <option value="opcion2">Cadena de produccion</option>
-  </select>
-  <div id="selectedOption"></div>
-
-  <script>
-    $(document).ready(function () {
-      $("#optionSelect").change(function () {
-        var selectedValue = $(this).val();
-        if (selectedValue === "opcion1" || selectedValue === "opcion2") {
-          $.ajax({
-            url: "/handle_option",
-            type: "POST",
-            data: JSON.stringify({ option: selectedValue }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (data) {
-              $("#selectedOption").text(data.message);
-            },
-          });
-        }
-      });
-    });
-  </script>
-
--->
-
 
 
 
