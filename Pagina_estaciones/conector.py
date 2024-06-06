@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for,jsonify
 import webbrowser, pymysql, json, pytz
 from threading import Timer
 from datetime import datetime, timedelta
@@ -35,6 +35,17 @@ def index():
         independent_stations(work, timeout, total)
 
     return render_template("index.html")
+
+@app.route("/handle_option", methods=["POST"])
+def handle_option():
+    selected_option = request.json["option"]
+    if selected_option=="opcion1":
+        print("Hola")
+    else:
+        print("Mundo")
+    return jsonify({"message": ""}) # No borrar
+
+
 
 def independent_stations(work, timeout, total):
     now = datetime.now(pytz.timezone('America/Bogota'))

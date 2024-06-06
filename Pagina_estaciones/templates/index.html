@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_reloj.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_reloj.css') }}">}
+    <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
 
 </head>
 <body background="../static/imags/fondo_estaciones.jpg">
@@ -83,11 +84,38 @@
 
 
 
+<select id="optionSelect">
+    <option value="">--Seleccione modo de producción</option>
+    <option value="opcion1">Produccion individual</option>
+    <option value="opcion2">Cadena de produccion</option>
+  </select>
+  <div id="selectedOption"></div>
+
+  <script>
+    $(document).ready(function () {
+      $("#optionSelect").change(function () {
+        var selectedValue = $(this).val();
+        if (selectedValue === "opcion1" || selectedValue === "opcion2") {
+          $.ajax({
+            url: "/handle_option",
+            type: "POST",
+            data: JSON.stringify({ option: selectedValue }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+              $("#selectedOption").text(data.message);
+            },
+          });
+        }
+      });
+    });
+  </script>
 
 
 <!--<script src="https://unpkg.com/html5-qrcode"></script>
 
 -->
+
 <script src="{{ url_for('static', filename='js/html5-qrcode.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/logica_reloj.js') }}"></script>
 
