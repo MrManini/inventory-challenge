@@ -60,21 +60,11 @@ def entrada_bodega():
 @app.route('/salida_bodega',methods=['GET','POST'])
 def salida_bodega(): #TODO: cambiar modo de lectura y cambiar a 31
     session['previous_state'] = 'salida'  # Actualiza el estado anterior en la sesión
-    if request.method=='POST':
-        producto1=request.form["s_cantidad_producto1"]
-        print(f"Numero salida: {producto1}")
-
-        producto2=request.form["s_cantidad_producto2"]
-        print(f"Numero salida: {producto2}")
-
-        producto3=request.form["s_cantidad_producto3"]
-        print(f"Numero salida: {producto3}")
-
-        producto4=request.form["s_cantidad_producto4"]
-        print(f"Numero salida: {producto4}")
-
-        send_command('0', 'w')
-        send_command('1', 'w')
+    if request.method=='POST': #TODO: cambiar a 31 
+        productos = tuple(int(request.form[f"cantidad_producto{i}"]) for i in range(1, 5))
+        for i in range(4):
+            if productos[i] != 0:
+                send_command(str(i+1), "c")
     return render_template('sacar_bodega.html')
 
 @app.route('/inventario',methods=['GET','POST'])

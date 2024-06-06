@@ -70,7 +70,7 @@ while True:
                     cursor.execute("SELECT * FROM inventory WHERE id = %s;", (led+1,))
                     producto = cursor.fetchone()
                     if producto["amount"] > 0:
-                        cursor.execute("UPDATE inventory SET amount = amount - 1 WHERE id = %s;", (led+1,))
+                        cursor.execute("UPDATE inventory SET amount = amount - 1 WHERE id = %s;", (led+1))
                         mysql.commit()
                         send_command(str(obj.data))
             except ValueError:
