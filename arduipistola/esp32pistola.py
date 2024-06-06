@@ -63,6 +63,16 @@ while True:
                     mysql.commit()
                     send_command(obj.data)
                     pedido[f"kit{led+1}"] = 0
+                    if sum(pedido.values()) == 0:
+                        mode = "subtract"
+                        send_command(b"-1")
+                else:
+                    cursor.execute("SELECT * FROM inventory WHERE id = %s;", (led+1,))
+                    producto = cursor.fetchone()
+                    if producto["amount"] > 0:
+                        cursor.execute("UPDATE inventory SET amount = amount - 1 WHERE id = %s;", (led+1,))
+                        mysql.commit()
+                        send_command(obj.data)
             except ValueError:
                 if obj.data == b'pop_pedido':
                     cursor.execute("SELECT * FROM orders ORDER BY id ASC LIMIT 1;")
