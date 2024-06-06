@@ -32,6 +32,7 @@ def index():
         work = timedelta(hours=horas, minutes=minutos, seconds=segundos, milliseconds=milisegundos)
         timeout = timedelta(hours=horas_inactivo, minutes=minutos_inactivo, seconds=segundos_inactivo, milliseconds=milisegundos_inactivo)
         total = work + timeout
+        independent_stations(work, timeout, total)
 
     return render_template("index.html")
 
