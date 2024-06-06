@@ -4,11 +4,16 @@ import pymysql
 from threading import Timer
 
 app = Flask(__name__, static_folder="static")
-app.config['MYSQL_HOST'] = 'localhost'
+
+'''app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'central'
 app.config['MYSQL_PASSWORD'] = 'Central-Stati0n'
 app.config['MYSQL_DB'] = 'storage'
-
+'''
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'jhonatan'
+app.config['MYSQL_DB'] = 'datostiempo'
 
 mysql = pymysql.connect(
     host=app.config['MYSQL_HOST'],
