@@ -41,16 +41,6 @@ def index():
     return render_template("index.html")
 
 
-'''
-@app.route("/handle_option", methods=["POST"])
-def handle_option():
-    selected_option = request.json["option"]
-    if selected_option=="opcion1":
-        print("Hola")
-    else:
-        print("Mundo")
-    return jsonify({"message": ""}) # No borrar
-'''
 
 
 def independent_stations(work, timeout, total):

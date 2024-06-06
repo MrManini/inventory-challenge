@@ -18,6 +18,22 @@ body{
     background: url("../imags/fondo_estaciones.jpg") center /cover no-repeat fixed;
 }
 
+
+.label_ldp{
+    color:whitesmoke;
+    font-size: 25px;
+
+}
+
+
+.tipo_de_produccion{
+    width: 20px;
+    height: 20px;
+    border-radius: 15px;
+    margin-right: 1vw;
+}
+
+
 .wrapper{
     user-select: none;;
     margin-bottom: 5vh;
