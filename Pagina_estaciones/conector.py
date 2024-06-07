@@ -103,7 +103,6 @@ def independent_stations(work, timeout, total):
     query = "INSERT INTO `stations` VALUES (%s, %s, %s, %s, %s)"
     cursor.execute(query, (now, station, work, timeout, total))
     mysql.commit()
-
 def open_browser():
     url = "http://localhost:5000"
     webbrowser.open_new_tab(url)

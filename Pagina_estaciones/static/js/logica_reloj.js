@@ -44,11 +44,9 @@ function stop(){
     minutos.value=min
     segundos.value=sec
     milisegundos.value=ms
-
 }
 
 function reset(){
-
     clearInterval(startTimer);
     hr=min=sec=ms="0"+0;
     putValue()
