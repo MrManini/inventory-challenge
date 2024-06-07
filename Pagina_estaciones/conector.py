@@ -35,7 +35,7 @@ def index():
         if tipo_produccion=="on":
             independent_stations(work, timeout, total)
         else:
-            print("mundo")
+            assembly_line(work, timeout)
 
     return render_template("index.html")
 
