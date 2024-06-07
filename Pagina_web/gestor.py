@@ -45,22 +45,25 @@ def index():
 @app.route('/entrada_bodega',methods=['GET','POST'])
 def entrada_bodega():
     session['previous_state'] = 'entrada'  # Actualiza el estado anterior en la sesión
-    if request.method=='POST': #TODO: cambiar a 31 
-        productos = tuple(int(request.form[f"cantidad_producto{i}"]) for i in range(1, 5))
+    if request.method=='POST':
+        productos = tuple(int(request.form[f"cantidad_producto{i}"]) for i in range(1, 31))
         if sum(productos) != 0:
-            print(productos)
             cursor = mysql.cursor()
-            query = "INSERT INTO `orders` (`kit1`, `kit2`, `kit3`, `kit4`) VALUES (%s, %s, %s, %s)"
+            query = """INSERT INTO `orders` VALUES 
+            (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s,
+             %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, 
+             %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            """
             cursor.execute(query, productos)
             mysql.commit()
     # Renderiza la otra página HTML
     return render_template('ingresar_bodega.html')
 
 @app.route('/salida_bodega',methods=['GET','POST'])
-def salida_bodega(): #TODO: cambiar modo de lectura y cambiar a 31
+def salida_bodega():
     session['previous_state'] = 'salida'  # Actualiza el estado anterior en la sesión
-    if request.method=='POST': #TODO: cambiar a 31 
-        productos = tuple(int(request.form[f"s_cantidad_producto{i}"]) for i in range(1, 5))
+    if request.method=='POST':
+        productos = tuple(int(request.form[f"s_cantidad_producto{i}"]) for i in range(1, 31))
         for i in range(4):
             if productos[i] != 0:
                 send_command(str(i+1), "c")
