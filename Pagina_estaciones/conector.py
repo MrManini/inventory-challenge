@@ -80,7 +80,7 @@ def assembly_line(work, timeout):
         query = """
             UPDATE assembly_line 
             SET TotalTime = ADDTIME(TotalWorkTime, TotalTimeOut)
-            WHERE TotalTimeOut = '00:00:00.00'
+            WHERE TotalTime = '00:00:00.00'
             ORDER BY StartTime ASC LIMIT 1
         """
         cursor.execute(query)
