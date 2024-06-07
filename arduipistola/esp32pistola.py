@@ -100,4 +100,3 @@ while True:
         break
  
 cv2.destroyAllWindows()
-#obj.data[2:-1]

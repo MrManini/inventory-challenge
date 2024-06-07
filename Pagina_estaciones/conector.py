@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for,jsonify
-import webbrowser, pymysql, json, pytz
+import webbrowser, pymysql, json, pytz, os
 from threading import Timer
 from datetime import datetime, timedelta
 
 app = Flask(__name__, static_folder="static")
 
-f = open('Pagina_estaciones/estacion.json')
+script_dir = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(script_dir, 'estacion.json')
+f = open(file_path)
 data = json.load(f)
 f.close()
 
