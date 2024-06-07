@@ -53,7 +53,8 @@ a:active {
     url(https://images6.alphacoders.com/421/421437.jpg)
     center / cover no-repeat fixed;
   }
-  
+
+
   .card {
     width: 300px;
     display: flex;
