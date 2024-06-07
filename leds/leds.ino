@@ -7,7 +7,6 @@ const int nleds = 30;
 int brightness = 30;
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(nleds, 15, NEO_GRB + NEO_KHZ800);  // Arduino Pin 3 Data Output
 int nextLed;
-bool leds[nleds];
 char colors[nleds];
 
 ///////please enter your sensitive data in the Secret tab/arduino_secrets.h
@@ -71,10 +70,9 @@ void loop() {
     }
     // close the connection:
     client.stop();
-    Serial.println(currentLine);
+    
     if (currentLine.startsWith("r") || currentLine.startsWith("g") || currentLine.startsWith("c") || currentLine.startsWith("y") || currentLine.startsWith("m") || currentLine.startsWith("w")|| currentLine.startsWith("o")){
       nextLed = currentLine.substring(1).toInt();
-      leds[nextLed] = true;
       if (0 <= nextLed && nextLed <= nleds){
         colors[nextLed] = currentLine[0];
       } else if (nextLed == 99){
@@ -85,36 +83,35 @@ void loop() {
         for (int i = 0; i < nleds; i++){
           colors[i] = 'n';
         }
-      } 
-    } else {
+      }
+    } else if (currentLine.startsWith("b'")){
       nextLed = currentLine.substring(2,4).toInt();
-      leds[nextLed] = false;
+      colors[nextLed] = 'n'; 
+    } else {
+      nextLed = currentLine.toInt();
+      if (nextLed == -1){
+        for (int i = 0; i < nleds; i++){
+          colors[i] = 'n';
+        }
+      }
     }
     
-    if (nextLed == -1){
-      for (int i = 0; i < nleds; i++){
-        leds[i] = false;
-      }
-    } else if (nextLed == 99){
-      for (int i = 0; i < nleds; i++){
-        leds[i] = true;
-      }
-    }
+    Serial.println(nextLed);
 
     for (int i = 0; i < nleds; i++) {
-      if (leds[i] && colors[i] == 'r'){
+      if (colors[i] == 'r'){
         strip.setPixelColor(i, 255,   0,   0);  // Red
-      } else if (leds[i] && colors[i] == 'g'){
+      } else if (colors[i] == 'g'){
         strip.setPixelColor(i,   0, 255,   0);  // Green
-      } else if (leds[i] && colors[i] == 'c'){
+      } else if (colors[i] == 'c'){
         strip.setPixelColor(i,   0, 255, 255);  // Cyan
-      } else if (leds[i] && colors[i] == 'y'){
+      } else if (colors[i] == 'y'){
         strip.setPixelColor(i, 255, 255,   0);  // Yellow
-      } else if (leds[i] && colors[i] == 'm'){
+      } else if (colors[i] == 'm'){
         strip.setPixelColor(i, 255,   0, 255);  // Magenta
-      } else if (leds[i] && colors[i] == 'o'){
+      } else if (colors[i] == 'o'){
         strip.setPixelColor(i, 252,  98,   0);  // Orange
-      } else if (leds[i] && colors[i] == 'w'){
+      } else if (colors[i] == 'w'){
         strip.setPixelColor(i, 255, 255, 255);  // White
       } else {
         strip.setPixelColor(i,  0,    0,   0);  // Off
