@@ -62,7 +62,7 @@ def entrada_bodega():
 def salida_bodega(): #TODO: cambiar modo de lectura y cambiar a 31
     session['previous_state'] = 'salida'  # Actualiza el estado anterior en la sesión
     if request.method=='POST': #TODO: cambiar a 31 
-        productos = tuple(int(request.form[f"cantidad_producto{i}"]) for i in range(1, 5))
+        productos = tuple(int(request.form[f"s_cantidad_producto{i}"]) for i in range(1, 5))
         for i in range(4):
             if productos[i] != 0:
                 send_command(str(i+1), "c")
