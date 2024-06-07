@@ -7,7 +7,7 @@ if (!isAuthenticated) {
 
 
 //aumentar y disminuir todos los elementos
-for (let i=1;i<=4;i++){
+for (let i=1;i<=30;i++){
     const aumentar = document.getElementById("aumentar"+i);
     const disminuir = document.getElementById("disminuir"+i);
     const cantidad=document.getElementById("cantidad_producto"+i)

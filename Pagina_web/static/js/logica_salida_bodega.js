@@ -1,5 +1,5 @@
 // para aumentar todos los campos de los elementos
-for (let i=1;i<=4;i++){
+for (let i=1;i<=30;i++){
     const aumentar = document.getElementById("s_aumentar"+i);
     const disminuir = document.getElementById("s_disminuir"+i);
     const cantidad=document.getElementById("s_cantidad_producto"+i)
