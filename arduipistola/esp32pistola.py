@@ -56,7 +56,7 @@ while True:
             print("Type:",obj.type)
             print("Data: ",obj.data)
             send_blink_signal()
-            try: #TODO: añadir modo resta
+            try:
                 led = int(obj.data)
                 if mode == "add":
                     cursor.execute("UPDATE inventory SET amount = amount + %s WHERE id = %s;", (pedido[f"kit{led+1}"], int(led+1)))
@@ -82,7 +82,7 @@ while True:
                         send_command("-1")
                         mode = "add"
                         cursor.execute("DELETE FROM orders ORDER BY id ASC LIMIT 1;")
-                        for i in range(1, 5): #TODO: Cambiar a 31 cuando esté lista la página web
+                        for i in range(1, 31):
                             if pedido[f"kit{i}"] != 0:
                                 send_command(str(i-1), "w")
                         mysql.commit()

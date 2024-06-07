@@ -36,7 +36,7 @@ def index():
 
         contraseña=request.form['contraseña']
         # Puedes hacer lo que necesites con los datos, como guardarlos en una base de datos
-        if correo == 'jhonatan@hotmail.com' and contraseña == '12345':
+        if ((correo == 'jhonatan@hotmail.com' and contraseña == '12345') or (correo == 'admin' and contraseña == '12345')):
             session['previous_state'] = 'entrada'  # Almacena el estado anterior en la sesión
             # Redirige a otra página HTML si las credenciales son correctas
             return redirect(url_for('entrada_bodega'))
@@ -76,16 +76,17 @@ def inventario():
         consulta = request.form.get("tipo_de_consulta")
 
         if consulta == "Consultar inventario":
-            print("Hola")
             cursor = mysql.cursor()
             cursor.execute("SELECT * FROM inventory;")
             data = cursor.fetchall()
         elif consulta == "Consultar tiempo de linea de produccion":
-            print("mundo")
+            cursor = mysql.cursor()
+            cursor.execute("SELECT * FROM assembly_line;")
+            data = cursor.fetchall()
+        else:
             cursor = mysql.cursor()
             cursor.execute("SELECT * FROM stations;")
             data = cursor.fetchall()
-
     previous_state = session.get('previous_state', 'vacio')  # Obtiene el estado anterior de la sesión
 
     return render_template('inventario.html', data=data, last_state=previous_state)
@@ -100,6 +101,5 @@ def open_browser():
 
 if __name__ == '__main__':
     cursor = mysql.cursor()
-    cursor.execute("TRUNCATE TABLE orders;")
     Timer(1, open_browser).start()
     app.run(debug=True, use_reloader=False)  # Deshabilita el cargador automático
